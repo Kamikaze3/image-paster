@@ -30,8 +30,18 @@ else if(preg_match('/^\/createpost(\/.*)?$/', $_SERVER['REQUEST_URI'])) {
 	if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$post_data = file_get_contents('php://input');
 		$filename = sha1($post_data) . ".html";
+		$data = json_decode($post_data);
 
-		file_put_contents($postUploadFolder . DIRECTORY_SEPARATOR . $filename, $post_data);
+		$html = '<html><body><h1>' . $data->name . '</h2>';
+
+		foreach($data->images as $image)
+		{
+			$html .= '<img src=\'/uploads/' . $image . '\' />';
+		}
+
+		$html .= '</body></html>';
+
+		file_put_contents($postUploadFolder . DIRECTORY_SEPARATOR . $filename, $html);
 		echo '/post/' . $filename;
 	}
 }

@@ -59,7 +59,7 @@ window.onload = function() {
 
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4) {
-					console.log(xhr.responseText);
+					window.location.href = xhr.responseText;
 				}
 			};
 
