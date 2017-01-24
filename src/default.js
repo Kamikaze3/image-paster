@@ -73,6 +73,7 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
 				for (var i = 0; i < items.length; i++) {
 					if (items[i].type.indexOf("image") !== -1) {
 						//image
+						console.log(items[i]);
 						var blob = items[i].getAsFile();
 						var URLObj = window.URL || window.webkitURL;
 						var source = URLObj.createObjectURL(blob);
