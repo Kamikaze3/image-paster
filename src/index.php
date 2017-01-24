@@ -10,19 +10,25 @@ if(!file_exists($fileUploadFolder))
 $fileUploadFolder = realpath($fileUploadFolder);
 
 // Routing
-switch($_SERVER['REQUEST_URI'])
-{
-	case '/file':
-        $file = $_FILES['file'];
-        $hash = sha1_file($file['tmp_name']);
+if($_SERVER['REQUEST_URI'] == '/file') {
+	$file = $_FILES['file'];
+	$hash = sha1_file($file['tmp_name']);
 
-        $newFilename = $fileUploadFolder . DIRECTORY_SEPARATOR . $hash;
-        move_uploaded_file($file['tmp_name'], $newFilename);
+	$newFilename = $fileUploadFolder . DIRECTORY_SEPARATOR . $hash;
+	move_uploaded_file($file['tmp_name'], $newFilename);
 
-        echo "{id:'$hash'}";
-		break;
-
-	default:
-		echo file_get_contents('index.html');
+	header('Content-Type: application/json');
+	echo json_encode(array('id' => $hash));
 }
+else if(preg_match('/^\/post(\/.*)?$/', $_SERVER['REQUEST_URI'])) {
+	echo "post";
 
+	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+	} else {
+
+	}
+}
+else {
+	echo file_get_contents('index.html');
+}

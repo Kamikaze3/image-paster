@@ -30,8 +30,10 @@ document.addEventListener('paste', function(e){
 					var xhr = new XMLHttpRequest();
 
 					xhr.onreadystatechange = function() {
-						if (xhr.readyState == 4)
-							console.log(xhr.responseText);
+						if (xhr.readyState == 4) {
+							var json = JSON.parse(xhr.responseText);
+							console.log("Response id: ", json.id);
+						}
 					};
 
 					xhr.open('POST', resourceLink, true);
