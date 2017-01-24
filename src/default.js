@@ -1,6 +1,8 @@
-var resourceLink = "/file";
+var post = [];
 
 document.addEventListener('paste', function(e){
+	var resourceLink = "/file";
+
 	if (e.clipboardData) {
 		var items = e.clipboardData.items;
 		if (items) {
@@ -33,6 +35,7 @@ document.addEventListener('paste', function(e){
 						if (xhr.readyState == 4) {
 							var json = JSON.parse(xhr.responseText);
 							console.log("Response id: ", json.id);
+							post.push(json.id);
 						}
 					};
 
@@ -45,3 +48,29 @@ document.addEventListener('paste', function(e){
 		}
 	}
 }, false);
+
+window.onload = function() {
+	var input = document.getElementById("name");
+	input.addEventListener('keyup', function(e) {
+		var resourceLink = "/createpost";
+
+		if(e.keyCode == 13) {
+			var xhr = new XMLHttpRequest();
+
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					console.log(xhr.responseText);
+				}
+			};
+
+			xhr.open('POST', resourceLink, true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(JSON.stringify({
+				name: input.value,
+				images: post
+			}));
+
+			input.value = "";
+		};
+	});
+}
