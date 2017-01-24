@@ -1,0 +1,19 @@
+{
+    "name": "kamikaze3/image-poster",
+    "description": "lul",
+    "type": "project",
+    "require": {
+        "silex/silex": "^2.0"
+    },
+    "license": "FuckoffIT",
+    "authors": [
+        {
+            "name": "Mads Røskar",
+            "email": "madshvero@gmail.com"
+        },
+        {
+            "name": "Frank Lyder Bredland",
+            "--> insert pls @ frank <--"
+        }
+    ]
+}
